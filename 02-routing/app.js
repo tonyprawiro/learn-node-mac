@@ -18,10 +18,14 @@ app.get(/^\/russia\/(\d+)$/i, function(request, response) {
   response.send("Welcome to Russia, Agent #" + parseInt(request.params[0]));
 });
 
-// Regex with named parameter
+// Regex with named parameter ... not working
 app.get(/^\/:country(Thailand|Taiwan)$/, function(request, response) {
   response.send("Let's go to " + request.params.country);
 });
+
+// Include other routers
+apiRouter = require('./routes/api_router');
+app.use('/api', apiRouter);
 
 app.use(function(request, response) {
   response.status(404).send("Resource not found");
